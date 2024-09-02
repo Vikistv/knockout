@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Knockout test</title>
+    <link rel="stylesheet" href="index.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"
+      type="text/javascript"
+    ></script>
+  </head>
+  <body>
+    <div id="knockout-test">
+      <div class="groups">
+        <ul class="group" data-bind="foreach: categories">
+          <li class="group-title"  data-bind="css: { selected: $root.dragItem() === $data }, click: function() {$root.moveItem($data)}"
+        draggable="true">
+            <div class="title" draggable="true" >
+              <button data-bind="click:toggle" class="icon">
+                <img class="circle" src="./icons/circle.svg" alt="circle" />
+                <img class="arrow" data-bind="css: { rotated: isOpen }" src="./icons/arrow.svg" alt="arrow" />
+              </button>
+
+              <h5 data-bind="text: name"></h5>
+              <button class="vector" data-bind="click: function(data, event) { event.stopPropagation(); $root.selectedItem($data); }">
+                <img src="./icons/vector.svg" alt="vector" />
+              </button>
+            </div>
+            <!-- <div class="drop-line" data-bind="visible: $root.showLine()"></div> -->
+            <ul class="group-subtitle" data-bind="foreach: documents, css: { open: isOpen }">
+              <li data-bind="css: { selected: $root.dragItem() && $root.dragItem().document === $data }, 
+              click: function(data, event) { event.stopPropagation(); $root.moveDocument($data, $parent); }">
+                <span data-bind="text:$data"></span>
+                <button class="vector" data-bind="click: function(data, event) { event.stopPropagation(); $root.startMoveDocument($data, $parent); }">
+                  <img src="./icons/vector.svg" alt="vector" />
+                </ button >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
